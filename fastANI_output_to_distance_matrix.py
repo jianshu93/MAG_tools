@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Copyright 2018 Ryan Wick (rrwick@gmail.com)
-https://github.com/rrwick/Bacsort
-Modified by Jianshu Zhao (jansuechao@hotmail.com)
+Created by Jianshu Zhao (jansuechao@gmail.com)
 This script uses FastANI output to generate a PHYLIP distance matrix suitable for tree/headmap et.al.
 """
 
