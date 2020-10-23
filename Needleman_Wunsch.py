@@ -1,4 +1,6 @@
 #!/usr/loca/env python3
+### Needleman Wunsch global alignment algorithsm.
+### usage: Needle_Wunsch.py seq1.fa seq2.fa (seq1.fa and seq2.fa musth be singe record multifasta file)
 
 import sys
 match = 1
