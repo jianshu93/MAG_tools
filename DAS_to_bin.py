@@ -2,7 +2,8 @@
 ### This script is used for extract contigs from a large contig file according to the DAS tools output (contig identifier VS bin name)
 ### jianshu.zhao@gatech.edu
 ## usage: python DAS_to_bin.py contigs.fa DASTool_scaffolds2bin.txt GWMC_1222_(output MAG prefix) ./MAGs (output directory)
-
+### This is much faster than the default shell script (offered in DASTools github) when there is a very big contig file. This
+### process is accelerated by using dictionary in python
 import sys
 import os
 file1=str(sys.argv[1])
