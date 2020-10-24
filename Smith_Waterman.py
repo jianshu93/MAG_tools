@@ -1,5 +1,6 @@
 #!/usr/loca/env python3
-
+### Smith-Waterman local alignment of 2 sequences (DNA or protein), BIOSUM50 table can be used 
+### for protein match/mismatch scores.
 import sys
 
 match = 1
