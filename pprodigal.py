@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+### a multiprocess version of prodigal, created by Jianshu Zhao (jianshu.zhao@gatech.edu)
+### with help from CompareM software add_gene module and make it independent of CompareM.
+### feel free to contact me if necessary
+
+
 
 import argparse
 import tempfile
