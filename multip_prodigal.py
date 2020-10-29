@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 ### a multiprocess version of prodigal, created by Jianshu Zhao (jianshu.zhao@gatech.edu)
 ### with help from CompareM software add_gene module and make it independent of CompareM.
-### feel free to contact me if necessary
+### feel free to contact me if necessary. By default run 2000 sequences per process.
 
 
 
@@ -147,7 +147,7 @@ def main():
     argp.add_argument('-o', "--output", type=str, help="Specify output file (default writes to stdout).")
     argp.add_argument('-p', "--procedure", type=str, help="Select procedure (single or meta).  Default is single.")
     argp.add_argument('-s', "--scorefile", type=str, help="Write all potential genes (with scores) to the selected file.")
-    argp.add_argument('-T', "--threads", type=int, help="number of threads")
+    argp.add_argument('-T', "--processes", type=int, help="number of processes")
     opts = argp.parse_args()
 
     if opts.threads and opts.threads < 1:
