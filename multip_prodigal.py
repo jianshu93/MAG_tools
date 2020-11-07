@@ -3,8 +3,6 @@
 ### with help from CompareM software add_gene module and make it independent of CompareM.
 ### feel free to contact me if necessary. By default run 2000 sequences per process.
 
-
-
 import argparse
 import tempfile
 from concurrent.futures import ThreadPoolExecutor
