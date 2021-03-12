@@ -1,3 +1,5 @@
+### parallel ani using mummer 4. Jianshu Zhao
+
 import os
 import multiprocessing as mp
 import sys
