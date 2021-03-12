@@ -12,6 +12,7 @@ import subprocess
 import threading
 import sys
 import re
+import multiprocessing as mp
 
 def run_prodigal(opts, workDir, currentId, chunkFile):
     cmd = ["prodigal", "-q", "-i", chunkFile.name ]
