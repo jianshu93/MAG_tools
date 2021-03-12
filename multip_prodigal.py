@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 ### a multiprocess version of prodigal, created by Jianshu Zhao (jianshu.zhao@gatech.edu)
 ### with help from CompareM software add_gene module and make it independent of CompareM.
-### feel free to contact me if necessary. By default run 2000 sequences per process.
+### feel free to contact me if necessary. By default run 2000 sequences per process. I will 
+### add a new option to define number of sequences per process by youself
 
 import argparse
 import tempfile
