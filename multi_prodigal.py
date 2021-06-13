@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-### a multiprocess version of prodigal, created by Jianshu Zhao (jianshu.zhao@gatech.edu)
-### with help from CompareM software add_gene module and make it independent of CompareM.
-### feel free to contact me if necessary. By default run 2000 sequences per process. I will 
-### add a new option to define number of sequences per process by youself
+
+#### Jianshu Zhao jianshu.zhao@gatech.edu. Modified according to a online version and fixed a lot of bugs
+#### gff format output now is correct. Feel free to contact me if you find any bugs.
+#### usage: python pprodigal.py -i contig.fasta -T 24 -f gff -o contig.gff -p meta
+
 
 import argparse
 import tempfile
@@ -12,7 +13,7 @@ import subprocess
 import threading
 import sys
 import re
-import multiprocessing as mp
+
 
 def run_prodigal(opts, workDir, currentId, chunkFile):
     cmd = ["prodigal", "-q", "-i", chunkFile.name ]
@@ -78,7 +79,7 @@ def append_gff_file(file, startNum, targetFile):
                     match = re.match(pattern, line)
                     if match and match.group(3) == "1":
                         startNum = startNum + 1
-                    line = match.group(1) + str(startNum) + "_" + match.group(3) + match.group(4)
+                    line = match.group(1) + str(startNum) + "_" + match.group(3) + match.group(4) + "\n"
                 trgt.write(line)
     return startNum
 
@@ -147,21 +148,38 @@ def main():
     argp.add_argument('-o', "--output", type=str, help="Specify output file (default writes to stdout).")
     argp.add_argument('-p', "--procedure", type=str, help="Select procedure (single or meta).  Default is single.")
     argp.add_argument('-s', "--scorefile", type=str, help="Write all potential genes (with scores) to the selected file.")
-    argp.add_argument('-T', "--processes", type=int, help="number of processes")
+    argp.add_argument('-T', "--tasks", type=int, help="number of prodigal processes to start in parallel (default: 20)")
+    argp.add_argument('-C', "--chunksize", type=int, help="number of input sequences to process within a chunk (default: 2000)")
     opts = argp.parse_args()
 
-    if opts.threads and opts.threads < 1:
+    ### check if prodigal installed
+    rc = subprocess.call(['which', 'prodigal'])
+    if rc == 0:
+        print ("wget installed!")
+    else:
+        print ("wget missing in path!")
+
+    ### check if tasks less than 1
+    tasks = 20
+    if opts.tasks is not None:
+        if opts.tasks < 1:
+            raise ValueError
+        tasks = opts.tasks
+
+    if opts.chunksize and opts.chunksize < 1:
         raise ValueError
 
-    if which("prodigal") is None:
-        raise ValueError("prodigal not found!")
-
     seqsPerChunk = 2000
+    if opts.chunksize is not None:
+        if opts.chunksize < 1:
+            raise ValueError
+        seqsPerChunk = opts.chunksize
+
     seqCnt = 0
     currentChunk = 1
 
     workDir = tempfile.TemporaryDirectory()
-    executor = ThreadPoolExecutor(max_workers=opts.threads)
+    executor = ThreadPoolExecutor(max_workers=tasks)
     currentFile = open(workDir.name + "/chunk" + str(currentChunk), 'w')
 
     queryFile = None
